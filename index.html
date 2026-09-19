@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#130d2d">
+  <meta name="description" content="A tiny universe of birthday surprises, made with love.">
+  <title>Happy Birthday, Matangi ♡</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23130d2d'/%3E%3Cpath d='M16 26S5 20 5 12.5C5 8 10.7 6 16 11c5.3-5 11-3 11 1.5C27 20 16 26 16 26Z' fill='%23ff78b9'/%3E%3Cpath d='m22 4 .9 2.1L25 7l-2.1.9L22 10l-.9-2.1L19 7l2.1-.9L22 4Z' fill='%23ffd76a'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+  <div class="aurora" aria-hidden="true"></div>
+
+  <main>
+    <section class="welcome" id="welcome" aria-labelledby="welcome-title">
+      <p class="eyebrow">A PRIVATE LITTLE UNIVERSE</p>
+      <div class="mini-orbit" aria-hidden="true"><span>✦</span></div>
+      <h1 id="welcome-title">Matangi, this little<br><em>universe is yours.</em></h1>
+      <p class="intro">Someone who loves you made a trail of tiny surprises for your birthday.</p>
+      <button class="primary" id="begin-button" type="button">Begin your surprise <span aria-hidden="true">♡</span></button>
+      <p class="tiny-note">There are seven surprises hiding inside.</p>
+    </section>
+
+    <section class="first-reveal" id="first-reveal" hidden aria-live="polite">
+      <p class="eyebrow">CHAPTER ONE · THE ARRIVAL</p>
+      <h2>Happy birthday, <span data-name>Matangi</span>.</h2>
+      <p>This is not a normal page. It is a trail of little surprises, and every one of them leads back to you.</p>
+      <button class="primary" id="continue-button">Enter your birthday universe <span aria-hidden="true">✦</span></button>
+    </section>
+
+    <section class="universe" id="universe" hidden aria-labelledby="universe-title">
+      <header class="topbar">
+        <div class="brand"><span aria-hidden="true">✦</span> For <span data-name>Matangi</span></div>
+        <div class="top-actions">
+          <button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="false">Sound off</button>
+          <div class="progress-pill" aria-live="polite"><span id="progress-count">0</span>/6 discovered</div>
+        </div>
+      </header>
+
+      <div class="universe-heading">
+        <p class="eyebrow">YOUR CELEBRATION MAP</p>
+        <h2 id="universe-title">Choose a little light.</h2>
+        <p>Open these in any order. The last surprise wakes up when you have found the first six.</p>
+      </div>
+
+      <div class="surprise-grid" id="surprise-grid">
+        <button class="surprise-card card-letter" data-open="letter" type="button"><span class="card-number">01</span><span class="card-icon" aria-hidden="true">💌</span><strong>A note for your heart</strong><small>Open me slowly</small><span class="card-status">Unopened</span></button>
+        <button class="surprise-card card-stars" data-open="stars" type="button"><span class="card-number">02</span><span class="card-icon" aria-hidden="true">✨</span><strong>The compliment cosmos</strong><small>Catch a few stars</small><span class="card-status">Unopened</span></button>
+        <button class="surprise-card card-reasons" data-open="reasons" type="button"><span class="card-number">03</span><span class="card-icon" aria-hidden="true">🫙</span><strong>A jar full of reasons</strong><small>Pick one, then another</small><span class="card-status">Unopened</span></button>
+        <button class="surprise-card card-future" data-open="future" type="button"><span class="card-number">04</span><span class="card-icon" aria-hidden="true">🗺️</span><strong>Three doors to someday</strong><small>Choose our next chapter</small><span class="card-status">Unopened</span></button>
+        <button class="surprise-card card-quiz" data-open="quiz" type="button"><span class="card-number">05</span><span class="card-icon" aria-hidden="true">🎯</span><strong>The easiest quiz ever</strong><small>There is a tiny trick</small><span class="card-status">Unopened</span></button>
+        <button class="surprise-card card-wish" data-open="wish" type="button"><span class="card-number">06</span><span class="card-icon" aria-hidden="true">🎂</span><strong>Your birthday wish</strong><small>Tap out the candles</small><span class="card-status">Unopened</span></button>
+        <button class="surprise-card card-final locked" id="final-card" data-open="finale" type="button" disabled><span class="card-number">07</span><span class="card-icon" aria-hidden="true">🔒</span><strong>The one last thing</strong><small id="final-hint">Six lights are keeping it asleep</small><span class="card-status">Locked</span></button>
+      </div>
+
+      <aside class="heart-hunt" aria-live="polite"><span aria-hidden="true">♡</span><p><strong>Secret side quest:</strong> three tiny hearts are hiding in this universe.</p><b><span id="heart-count">0</span>/3 found</b></aside>
+      <button class="easter-heart heart-one" data-heart="1" aria-label="Hidden heart one">♡</button>
+      <button class="easter-heart heart-two" data-heart="2" aria-label="Hidden heart two">♡</button>
+      <button class="easter-heart heart-three" data-heart="3" aria-label="Hidden heart three">♡</button>
+    </section>
+  </main>
+
+  <dialog class="surprise-dialog" id="letter-dialog" data-dialog="letter">
+    <button class="dialog-close" data-close aria-label="Close surprise">×</button><div class="dialog-kicker">Surprise 01 · a love note</div>
+    <div class="letter-paper"><p>My dearest <span data-name>Matangi</span>,</p><p>Today is a celebration of the way you make ordinary moments feel brighter. Your laugh, your kindness, your wonderfully impossible-to-copy way of being you — I notice it all.</p><p>I hope this next trip around the sun brings you soft mornings, brave adventures, ridiculous laughter, and every kind of love you deserve.</p><p>And on every kind of day, I hope you remember: you are deeply loved, wildly appreciated, and never alone.</p><p class="letter-signoff">Happy birthday, my favorite person.<br><strong>Always yours ♡</strong></p></div>
+    <button class="soft-button" data-close>Keep this in my heart</button>
+  </dialog>
+
+  <dialog class="surprise-dialog" id="stars-dialog" data-dialog="stars">
+    <button class="dialog-close" data-close aria-label="Close surprise">×</button><div class="dialog-kicker">Surprise 02 · compliment cosmos</div><h3>Catch a star, <span data-name>Matangi</span>.</h3><p class="dialog-copy">Every one holds something true about you.</p>
+    <div class="star-stage" id="star-stage" aria-live="polite"><div class="star-glow" aria-hidden="true">✦</div><p id="star-message">Tap the sky to catch your first star.</p></div>
+    <button class="primary compact" id="catch-star">Catch a star <span aria-hidden="true">✦</span></button>
+  </dialog>
+
+  <dialog class="surprise-dialog" id="reasons-dialog" data-dialog="reasons">
+    <button class="dialog-close" data-close aria-label="Close surprise">×</button><div class="dialog-kicker">Surprise 03 · reason jar</div><h3>There are so many reasons.</h3><p class="dialog-copy">This little jar could never hold them all, but it insisted on trying.</p>
+    <button class="reason-slip" id="reason-slip" type="button"><span>Pull out a reason</span><strong id="reason-text">Why I love you →</strong></button><p class="tap-note">Tap again. There are ten waiting.</p>
+  </dialog>
+
+  <dialog class="surprise-dialog" id="future-dialog" data-dialog="future">
+    <button class="dialog-close" data-close aria-label="Close surprise">×</button><div class="dialog-kicker">Surprise 04 · future postcard</div><h3>Choose a door to someday.</h3><p class="dialog-copy">No wrong answers. I want every version, as long as you are there.</p>
+    <div class="future-choices"><button data-future="adventure"><span>Door one</span><strong>Somewhere we have never been</strong></button><button data-future="ordinary"><span>Door two</span><strong>A perfectly ordinary Sunday</strong></button><button data-future="dream"><span>Door three</span><strong>That big dream we whisper about</strong></button></div><div class="future-answer" id="future-answer" aria-live="polite">Pick one and I will meet you there.</div>
+  </dialog>
+
+  <dialog class="surprise-dialog" id="quiz-dialog" data-dialog="quiz">
+    <button class="dialog-close" data-close aria-label="Close surprise">×</button><div class="dialog-kicker">Surprise 05 · a suspiciously easy quiz</div><h3>What makes <span data-name>Matangi</span> so special?</h3><div class="quiz-options"><button data-quiz>Her heart</button><button data-quiz>Her smile</button><button data-quiz>Her beautiful mind</button><button data-quiz>Literally everything</button></div><p class="quiz-answer" id="quiz-answer" aria-live="polite">Choose carefully…</p>
+  </dialog>
+
+  <dialog class="surprise-dialog" id="wish-dialog" data-dialog="wish">
+    <button class="dialog-close" data-close aria-label="Close surprise">×</button><div class="dialog-kicker">Surprise 06 · make a wish</div><h3>Your cake is ready.</h3><p class="dialog-copy">Tap every candle, close your eyes for one second, and make the biggest wish.</p><div class="cake-emoji" aria-label="Birthday cake">🎂</div>
+    <div class="candles" id="candles"><button aria-label="Blow out candle one" aria-pressed="false">🔥</button><button aria-label="Blow out candle two" aria-pressed="false">🔥</button><button aria-label="Blow out candle three" aria-pressed="false">🔥</button><button aria-label="Blow out candle four" aria-pressed="false">🔥</button><button aria-label="Blow out candle five" aria-pressed="false">🔥</button></div><p class="wish-result" id="wish-result" aria-live="polite">The candles are listening.</p>
+  </dialog>
+
+  <dialog class="surprise-dialog finale-dialog" id="finale-dialog" data-dialog="finale">
+    <button class="dialog-close" data-close aria-label="Close surprise">×</button>
+    <div id="finale-ready"><div class="dialog-kicker">Surprise 07 · one last thing</div><h3>This one needs a little heart.</h3><p class="dialog-copy">Press and hold. Do not let go until the universe answers.</p><button class="hold-button" id="hold-button" type="button"><span class="hold-fill"></span><b>Hold to open ♡</b></button></div>
+    <div class="final-message" id="final-message" hidden><p class="eyebrow">THE UNIVERSE ANSWERED</p><h3>My favorite place<br>is next to you.</h3><p>Not only today. Not only when life is easy. In the loud days, the quiet days, the sparkling days, and the messy ones too.</p><p>You are my happiest thought and my most beautiful adventure.</p><strong>Happy birthday, <span data-name>Matangi</span>.<br>I love you — more than this tiny universe can hold. ♡</strong><button class="primary compact" id="celebrate-again">Make it sparkle again ✦</button></div>
+  </dialog>
+
+  <dialog class="surprise-dialog bonus-dialog" id="bonus-dialog">
+    <button class="dialog-close" data-close aria-label="Close bonus">×</button><div class="dialog-kicker">Secret bonus · all hearts found</div><div class="bonus-heart" aria-hidden="true">♥</div><h3>You found the hidden heart.</h3><p class="dialog-copy">But here is the secret: you never had to look very far. Mine has been yours the whole time.</p><button class="soft-button" data-close>Okay, that was cute</button>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
